@@ -1,0 +1,17 @@
+# this file records all the required libraries needed
+# npm install -r requirements.txt
+jsonrpclib-pelix
+jayson
+pymongo
+pika
+requests
+redis
+sklearn
+python-dateutil
+newspaper3k
+numpy
+scipy
+pandas
+tensorflow
+watchdog
+pylint
