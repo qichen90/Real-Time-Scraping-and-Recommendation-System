@@ -1,9 +1,10 @@
 import jsonrpclib
 
-URL = 'http://localhost:5050'
-client = jsonrpclib.ServerProxy(URL)
+URL = "http://localhost:6060"
 
-def getPreferenceForUser(userId):
-    preference = client.call("getPreferenceForUser", userId)
-    print("Preference list: %s" % str(preference))
-    return preference
+client = jsonrpclib.ServerProxy(url=URL)
+
+def classifyForNews(text): 
+    topic = client.classifyForNews(text)
+    print("Topic: %s" % topic)
+    return topic
