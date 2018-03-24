@@ -1,0 +1,57 @@
+{
+    "mongoDB": {
+        "mainDB": {
+            "host": "localhost",
+            "port": 27017,
+            "DBname": "tap-news",
+            "newsTable": "news",
+            "preferenceModelTable": "user_preference_model"
+        }
+    },
+    "cloudAMQP": {
+        "scraperTaskQueue": {
+            "url": "amqp://zyxttdzy:CgfaZUfBCryGa5xfxdmJEfXSpVQZ-CN8@llama.rmq.cloudamqp.com/zyxttdzy",
+            "name": "SCRAPE_News", 
+            "sleep": 10
+        },
+        "deduperTaskQueue": {
+            "url": "amqp://gnzuwdxl:fyO1ipOpAmQDH4HNlrZ0UXFllDoSfelG@skunk.rmq.cloudamqp.com/gnzuwdxl",
+            "name": "Dedupe_News",
+            "sleep": 1
+        },
+        "clickLoggerQueue": {
+            "url": "amqp://wznspxdt:cXB3A3r1PSBv9AeDIV2gbY0rvfaqQ2hf@skunk.rmq.cloudamqp.com/wznspxdt",
+            "name": "Click_Logger",
+            "sleel": 3
+        }
+    },
+    "redis": {
+        "newsLoad": {
+            "host": "localhost",
+            "port": 6379
+        },
+        "newsMonitor": {
+            "host": "localhost",
+            "port": 6379
+        }
+    },
+    "services": {
+        "backendService": {
+            "host": "localhost",
+            "port": 4040
+        },
+        "recommendationService": {
+            "host": "localhost",
+            "port": 5050
+        },
+        "modelingService": {
+            "host": "localhost",
+            "port": 6060
+        }
+    },
+    "newsAPI": {
+        "endpoint": "https://newsapi.org/v1/",
+        "apikey": "cf9e2c4d79974aca9b9d668069dfeecb",
+        "defaultSource": ["cnn"]
+    }
+}
