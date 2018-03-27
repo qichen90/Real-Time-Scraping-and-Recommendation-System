@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd 
 import pickle 
 import time
+import json
 import tensorflow as tf
 from jsonrpclib.SimpleJSONRPCServer import SimpleJSONRPCServer
 from tensorflow.contrib.learn.python.learn.estimators import model_fn
@@ -16,8 +17,11 @@ import news_cnn_model
 
 learn = tf.contrib.learn
 
-SERVER_HOST_NAME = 'localhost'
-SERVER_PORT = 6060
+with open('../config.json') as json_data_file:
+    config = json.load(json_data_file)
+
+SERVER_HOST_NAME = config['services']['modelingService']['host']
+SERVER_PORT = config['services']['modelingService']['port']
 
 MODEL_DIR = '../model'
 MDOEL_UPDATE_LAG_IN_SECONDS = 10

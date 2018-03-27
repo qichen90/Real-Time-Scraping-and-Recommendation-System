@@ -3,18 +3,23 @@ import sys
 import redis
 import hashlib
 import datetime
+import json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
 import news_api_client
 from cloudAMQP_client import CloudAMQPClient
 
-SLEEP_IN_SECONDS = 10
 NEWS_TIME_OUT_IN_SECONDS = 3600 * 24 * 3
 
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
-CLOUD_AMQP_NAME = 'amqp://zyxttdzy:CgfaZUfBCryGa5xfxdmJEfXSpVQZ-CN8@llama.rmq.cloudamqp.com/zyxttdzy'
-QUEUE_NAME = 'SCRAPE_News'
+
+with open('../config.json') as json_data_file:
+    config = json.load(json_data_file)
+
+REDIS_HOST = config['redis']['newsMonitor']['host']
+REDIS_PORT = config['redis']['newsMonitor']['port']
+CLOUD_AMQP_NAME = config['cloudAMQP']['scraperTaskQueue']['url']
+QUEUE_NAME = config['cloudAMQP']['scraperTaskQueue']['name']
+SLEEP_IN_SECONDS = config['cloudAMQP']['scraperTaskQueue']['name']
 
 NEWS_SOURCES = [
     'bbc-news',

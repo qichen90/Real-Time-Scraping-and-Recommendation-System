@@ -21,13 +21,16 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
 import mongodb_client
 from cloudAMQP_client import CloudAMQPClient
 
-CLICK_LOGGER_QUEUE_URL = 'amqp://wznspxdt:cXB3A3r1PSBv9AeDIV2gbY0rvfaqQ2hf@skunk.rmq.cloudamqp.com/wznspxdt'
-CLICK_LOGGER_QUEUE_NAME = 'Click_Logger'
-click_logger_client = CloudAMQPClient(CLICK_LOGGER_QUEUE_URL, CLICK_LOGGER_QUEUE_NAME)
-SLEEP_TIME_IN_SECONDS = 3
+with open('../config.json') as json_data_file:
+    config = json.load(json_data_file)
 
-TABLE_NAME_FOR_NEWS = 'news'
-TABLE_NAME_FOR_PREFERENCE_MODEL = 'user_preference_model'
+CLICK_LOGGER_QUEUE_URL = config['cloudAMQP']['clickLoggerQueue']['url']
+CLICK_LOGGER_QUEUE_NAME = config['cloudAMQP']['clickLoggerQueue']['name']
+click_logger_client = CloudAMQPClient(CLICK_LOGGER_QUEUE_URL, CLICK_LOGGER_QUEUE_NAME)
+SLEEP_TIME_IN_SECONDS = config['cloudAMQP']['clickLoggerQueue']['sleep']
+
+TABLE_NAME_FOR_NEWS = config['mongoDB']['mainDB']['newsTable']
+TABLE_NAME_FOR_PREFERENCE_MODEL = config['mongoDB']['mainDB']['preferenceModelTable']
 
 N_CLASSES = 8
 INITIAL_P = 1.0 / N_CLASSES

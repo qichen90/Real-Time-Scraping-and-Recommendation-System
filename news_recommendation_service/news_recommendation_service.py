@@ -1,14 +1,18 @@
 import operator
 import os
 import sys
+import json
 from jsonrpclib.SimpleJSONRPCServer import SimpleJSONRPCServer
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
 import mongodb_client
 
-SERVER_HOST_NAME = 'localhost'
-SERVER_PORT = 5050
-TABLE_NAME_FOR_PREFERENCE_MODEL = 'user_preference_model'
+with open('../config.json') as json_data_file:
+    config = json.load(json_data_file)
+
+SERVER_HOST_NAME = config['services']['recommendationService']['host']
+SERVER_PORT = config['services']['recommendationService']['port']
+TABLE_NAME_FOR_PREFERENCE_MODEL = config['mongoDB']['mainDB']['preferenceModelTable']
 
 # float comparison
 def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):

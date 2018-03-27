@@ -1,10 +1,15 @@
 import jsonrpclib
+import json
 
-URL = "http://localhost:6060"
+with open('../config.json') as json_data_file:
+    config = json.load(json_data_file)
 
-client = jsonrpclib.ServerProxy(url=URL)
+HOST_NAME = config['services']['recommendationService']['host']
+HOST_PORT = config['services']['recommendationService']['port']
+URL = 'http://' + HOST_NAME + ":" + str(HOST_PORT)
+client = jsonrpclib.ServerProxy(URL)
 
-def classifyForNews(text): 
-    topic = client.classifyForNews(text)
-    print("Topic: %s" % topic)
-    return topic
+def getPreferenceForUser(userId):
+    preference = client.getPreferenceForUser(userId)
+    print("Preference list: %s" % str(preference))
+    return preference

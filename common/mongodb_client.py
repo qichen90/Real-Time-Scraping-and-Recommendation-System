@@ -1,7 +1,12 @@
+import json
 from pymongo import MongoClient
-MONGO_DB_HOST = 'localhost'
-MONGO_DB_PORT = '27017'
-DB_NAME = 'tap-news'
+
+with open('../config.json') as json_data_file:
+    config = json.load(json_data_file)
+
+MONGO_DB_HOST = config['mongoDB']['mainDB']['host']
+MONGO_DB_PORT = config['mongoDB']['mainDB']['port']
+DB_NAME = config['mongoDB']['mainDB']['DBname']
 
 client = MongoClient("%s:%s" % (MONGO_DB_HOST, MONGO_DB_PORT))
 def get_db(db=DB_NAME):

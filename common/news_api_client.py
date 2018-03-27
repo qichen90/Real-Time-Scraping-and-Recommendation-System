@@ -1,12 +1,14 @@
 import requests
+import json
 from json import loads
 
-NEWS_API_ENDPOINT = 'https://newsapi.org/v1/'
+with open('../config.json') as json_data_file:
+    config = json.load(json_data_file)
+
+NEWS_API_ENDPOINT = config['newsAPI']['endpoint']
 NEWS_API_ARTICLES = 'articles'
-NEWS_API_APIKEY = 'cf9e2c4d79974aca9b9d668069dfeecb'
-DEFAULT_SOURCES = [
-    'cnn'
-]
+NEWS_API_APIKEY = config['newsAPI']['apikey']
+DEFAULT_SOURCES = config['newsAPI']['defaultSource']
 SORT_BY_TOP = 'top'
 
 def _buildUrl(endPoint=NEWS_API_ENDPOINT, apiName=NEWS_API_ARTICLES):

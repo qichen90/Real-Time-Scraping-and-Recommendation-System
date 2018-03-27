@@ -5,9 +5,11 @@ from bson.json_util import dumps
 import operations
 from jsonrpclib.SimpleJSONRPCServer import SimpleJSONRPCServer # pylint: disable=import-error
 
+with open('../config.json') as json_data_file:
+    config = json.load(json_data_file)
 
-SERVER_HOST_NAME = 'localhost'
-SERVER_PORT = 4040
+SERVER_HOST_NAME = config['services']['backendService']['host']
+SERVER_PORT = config['services']['backendService']['port']
 
 def add(num1, num2):
     """Test for the servcie: Add two number. """

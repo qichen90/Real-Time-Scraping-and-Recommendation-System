@@ -5,12 +5,15 @@ from newspaper import Article
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
 from cloudAMQP_client import CloudAMQPClient
 
-SCRAPE_TASK_QUEUE_URL = 'amqp://zyxttdzy:CgfaZUfBCryGa5xfxdmJEfXSpVQZ-CN8@llama.rmq.cloudamqp.com/zyxttdzy'
-SCRAPE_TASK_QUEUE_NAME = 'SCRAPE_News'
-DEDUPE_TASK_QUEUE_URL = 'amqp://gnzuwdxl:fyO1ipOpAmQDH4HNlrZ0UXFllDoSfelG@skunk.rmq.cloudamqp.com/gnzuwdxl'
-DEDUPE_TASK_QUEUE_NAME = 'Dedupe_News'
+with open('../config.json') as json_data_file:
+    config = json.load(json_data_file)
 
-SLEEP_IN_SECONDS = 10
+SCRAPE_TASK_QUEUE_URL = config['cloudAMQP']['scraperTaskQueue']['url']
+SCRAPE_TASK_QUEUE_NAME = config['cloudAMQP']['scraperTaskQueue']['name']
+DEDUPE_TASK_QUEUE_URL = config['cloudAMQP']['deduperTaskQueue']['url']
+DEDUPE_TASK_QUEUE_NAME = config['cloudAMQP']['deduperTaskQueue']['name']
+
+SLEEP_IN_SECONDS = config['cloudAMQP']['scraperTaskQueue']['sleep']
 
 scrape_task_mq_client = CloudAMQPClient(SCRAPE_TASK_QUEUE_URL, SCRAPE_TASK_QUEUE_NAME)
 dedupe_task_mq_client = CloudAMQPClient(DEDUPE_TASK_QUEUE_URL, DEDUPE_TASK_QUEUE_NAME)

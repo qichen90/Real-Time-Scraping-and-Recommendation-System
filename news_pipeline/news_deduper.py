@@ -9,9 +9,13 @@ from cloudAMQP_client import CloudAMQPClient
 import mongodb_client 
 import news_topic_modeling_service_client as predictClient
 
-DEDUPE_TASK_QUEUE_URL = 'amqp://gnzuwdxl:fyO1ipOpAmQDH4HNlrZ0UXFllDoSfelG@skunk.rmq.cloudamqp.com/gnzuwdxl'
-DEDUPE_TASK_QUEUE_NAME = 'Dedupe_News'
-SLEEP_IN_SECONDS = 1
+with open('../config.json') as json_data_file:
+    config = json.load(json_data_file)
+
+DEDUPE_TASK_QUEUE_URL = config['cloudAMQP']['deduperTaskQueue']['url']
+DEDUPE_TASK_QUEUE_NAME = config['cloudAMQP']['deduperTaskQueue']['name']
+
+SLEEP_IN_SECONDS = config['cloudAMQP']['deduperTaskQueue']['sleep']
 dedupe_task_mq_client = CloudAMQPClient(DEDUPE_TASK_QUEUE_URL, DEDUPE_TASK_QUEUE_NAME)
 
 NEWS_TABLE_NAME = 'news'
